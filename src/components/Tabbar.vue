@@ -1,7 +1,7 @@
 <template>
   <div class="tab-bar">
     <ul>
-    <li @click="addActive(index1,'/mainPage')">
+    <li @click="addActive(index1,'/mainPage')" v-bind:class="{homeStart : homeClass}">
       <Icon type="ios-home-outline" size="32"/>
       <span>首页</span>
     </li>
@@ -9,17 +9,17 @@
       <Badge dot>
         <Icon type="ios-leaf-outline" size="32"/>
       </Badge>
-      <span>发现</span>
+      <span>关闭</span>
     </li>
     <li @click="addActive(3,'/info')">
       <Badge :count="3">
         <Icon type="ios-paper-plane-outline" size="32"/>
       </Badge>
-      <span>消息</span>
+      <span>关闭</span>
     </li>
     <li @click="addActive(4,'/me')">
       <Icon type="md-contact" size="32"/>
-      <span>我</span>
+      <span>关闭</span>
     </li>
   </ul>
   </div>
@@ -30,6 +30,7 @@
     name: "Tabbar",
     data() {
       return {
+        homeClass:false,
         index1:1,
         index2:2,
         index3:3,
@@ -38,13 +39,21 @@
         isActive: this.$store.state.tabIndex
       }
     },
+    created(){
+      if (this.isActive == 0){
+        this.$router.push(this.link[0]);
+        this.homeClass = true;
+      }
+    },
     mounted() {
       if (this.isActive != 0) {
+        this.homeClass = false;
         this.$router.push(this.link[this.isActive-1]);
       }
     },
     methods: {
       addActive: function (index,links) {
+        this.homeClass = false;
         this.isActive = index;
         this.$router.push(links);
         this.$store.commit("changeTab", index);
@@ -55,7 +64,7 @@
 
 <style lang="scss" scoped>
   .tab-bar {
-    height: 8rem;
+    height: 7rem;
     width: 100%;
     background: #fff;
     position: fixed;
@@ -85,6 +94,9 @@
         li:hover{
           color: #2d8cf0;
         }
+      .homeStart{
+        color: #2d8cf0;
+      }
       }
     }
 </style>

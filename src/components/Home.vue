@@ -24,10 +24,9 @@
   .home {
     min-height: 50rem;
     .home-content {
-      margin-top: 3rem;
+      margin-top: 4rem;
       width: 100%;
       background-color: #F5FAFA;
-      z-index: 1;
     }
   }
 </style>
