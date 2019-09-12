@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight"  tag="div">
+    <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight" tag="div">
       <Tabs v-model="tabPath" @on-click="turnItem">
         <TabPane label="记账" name="name1">
           <div class="carousel">
@@ -14,6 +14,7 @@
               </div>
             </Carousel>
           </div>
+          <div style="font-size:0.2rem !important;">&nbsp;&nbsp;&nbsp;小提示：标识关闭的区域是和菜宝不相关功能模块</div>
           <div class="form">
             <Form ref="formValidate" :model="formValidate" :label-width="60">
               <FormItem label="价钱：" prop="name">
@@ -27,7 +28,8 @@
                 </Select>
               </FormItem>
               <FormItem label="描述：" prop="desc">
-                <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="添加备注"></Input>
+                <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+                       placeholder="添加备注"></Input>
               </FormItem>
               <FormItem>
                 <Button type="primary" @click="submitForm">提交</Button>
@@ -39,6 +41,14 @@
             <div class="start">
               <img src="../assets/img/datou.png">
             </div>
+          </div>
+          <div style="display: flex; flex-direction: column;align-items: center">
+            <Card>本项目采用springBoot+vue实现的前后端分离，搭建了两个项目，github地址：<br>
+            springBoot：https://github.com/2518881238/demo3.git<br>
+              vue：https://github.com/2518881238/dede.git<br>
+              数据库是mysql，建好数据库就行，表会通过spring data JPA自动生成。
+              配置基本都配置好了，感兴趣的可以一起开发。<br>
+            </Card>
           </div>
         </TabPane>
         <TabPane label="账单查/改" name="name2">
@@ -66,13 +76,13 @@
                 <th>操作</th>
               </tr>
               </thead>
-                <tr v-for="item in this.infoList">
-                  <td>{{item.user_name}}</td>
-                  <td>{{item.price}}</td>
-                  <td>{{item.re_mark}}</td>
-                  <td>{{item.date}}</td>
-                  <td><a href="#" type="primary" @click="modal1 = true">修改</a></td>
-                </tr>
+              <tr v-for="item in this.infoList">
+                <td>{{item.user_name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.re_mark}}</td>
+                <td>{{item.date}}</td>
+                <td><a href="#" type="primary" @click="modal1 = true">修改</a></td>
+              </tr>
             </table>
             <br>
             <div style="width:100%; display: flex; justify-content: center">
@@ -86,26 +96,26 @@
                 @on-ok="ok"
                 @on-cancel="cancel">
                 这个功能关闭了，找管理员去
-<!--                <Form ref="formValidate" :model="formValidate" :label-width="60">-->
-<!--                  <FormItem label="价钱：" prop="price">-->
-<!--                    <Input v-model="formValidate.price" placeholder="请输入您买菜的价格"></Input>-->
-<!--                  </FormItem>-->
-<!--                  <FormItem label="姓名：" prop="name">-->
-<!--                    <Select v-model="formValidate.name" placeholder="请选择你的名字">-->
-<!--                      <Option value="朱宏">朱宏</Option>-->
-<!--                      <Option value="金彪">金彪</Option>-->
-<!--                      <Option value="王浪">王浪</Option>-->
-<!--                    </Select>-->
-<!--                  </FormItem>-->
-<!--                  <FormItem label="描述：" prop="desc">-->
-<!--                    <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="添加备注"></Input>-->
-<!--                  </FormItem>-->
-<!--                </Form>-->
+<!--                                <Form ref="formValidate" :model="formValidate" :label-width="60">-->
+<!--                                  <FormItem label="价钱：" prop="price">-->
+<!--                                    <Input v-model="formValidate.price" placeholder="请输入您买菜的价格"></Input>-->
+<!--                                  </FormItem>-->
+<!--                                  <FormItem label="姓名：" prop="name">-->
+<!--                                    <Select v-model="formValidate.name" placeholder="请选择你的名字">-->
+<!--                                      <Option value="朱宏">朱宏</Option>-->
+<!--                                      <Option value="金彪">金彪</Option>-->
+<!--                                      <Option value="王浪">王浪</Option>-->
+<!--                                    </Select>-->
+<!--                                  </FormItem>-->
+<!--                                  <FormItem label="描述：" prop="desc">-->
+<!--                                    <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="添加备注"></Input>-->
+<!--                                  </FormItem>-->
+<!--                                </Form>-->
               </Modal>
             </div>
           </div>
         </TabPane>
-        <TabPane label="别点" name="name3">
+        <TabPane label="关闭" name="name3">
           <div class="update">
             <span>
               <Card style="width: 90%;background-color: white;margin: 0 auto">
@@ -118,7 +128,7 @@
             <img src="../assets/img/gaoxiao.gif">
           </div>
         </TabPane>
-        <TabPane label="别点" name="name4">
+        <TabPane label="关闭" name="name4">
           <Card style="width: 90%;background-color: white;margin: 0 auto">一叶可以障目，一叶亦可知秋。</Card>
           <br>
           <Card style="width: 90%;background-color: white;margin: 0 auto">
@@ -142,6 +152,7 @@
             在逃去如飞的日子里，在千门万户的世界里的我能做些什么呢？只有徘徊罢了，只有匆匆罢了；在八千多日的匆匆里，除徘徊外，又剩些什么呢？过去的日子如轻烟，被微风吹散了，如薄雾，被初阳蒸融了；我留着些什么痕迹呢？我何曾留着像游丝样的痕迹呢？我赤裸裸来到这世界，转眼间也将赤裸裸的回去罢？但不能平的，为什么偏要白白走这一遭啊？<br>
             你聪明的，告诉我，我们的日子为什么一去不复返呢？
           </Card>
+          <div style="height: 8rem"></div>
         </TabPane>
       </Tabs>
     </v-touch>
@@ -166,19 +177,34 @@
           require('../assets/img/tianming.png')],
         modal1: false,
         searchItem: '',
-        infoList: null,
-        infoInstall: null,
-        value1:0,
+        infoList: [{
+          user_name: "",
+          price: "",
+          re_mark:"什么也没有...",
+          date: ""
+        }],
+        infoInstall: {
+          zhu: 0,
+          zhu1: 0,
+          jin: 0,
+          jin1: 0,
+          wang: 0,
+          wang1: 0
+        },
+        value1: 0,
         tabPath: "name1",
         formValidate: {
           price: '',
           name: '',
           desc: ''
-        }
+        },
+        addMsg: {msg:"新增成功"}
       }
     },
     created: function () {
       this.tabPath = 'name1';
+    },
+    mounted: function () {
       this.searchAll();
       this.searchFir();
     },
@@ -203,17 +229,11 @@
           params.append('name', this.formValidate.name);
           params.append('price', this.formValidate.price);
           params.append('desc', this.formValidate.desc);
-          this.$axios.create({ headers: {'content-type': 'application/x-www-form-urlencoded'} })
-            .post('/api/add',params)
-            .then(function (response) {
-              if(response.status == 200){
-                alert("新增成功")
-              }else {
-                alert("新增失败")
-              }
-            })
+          this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
+            .post('/api/add', params)
+            .then(response =>(this.addMsg = response.data,alert(this.addMsg.msg)))
             .catch(function (error) {
-              alert(error);
+              alert("新增失败"+error);
             })
           this.formValidate.price = '';
           this.formValidate.name = '';
@@ -226,50 +246,50 @@
         this.formValidate.desc = '';
       },
       onSwipeRight() {
-        if (null == this.tabPath){
+        if (null == this.tabPath) {
           this.tabPath = "name1";
-        }else if("name1" == this.tabPath){
+        } else if ("name1" == this.tabPath) {
           this.tabPath = this.tabPath;
         } else {
-          this.tabPath = this.tabPath.substr(0,4) + (parseInt(this.tabPath.substr(4,5))-1)
+          this.tabPath = this.tabPath.substr(0, 4) + (parseInt(this.tabPath.substr(4, 5)) - 1)
         }
       },
       onSwipeLeft() {
-        if (null == this.tabPath){
+        if (null == this.tabPath) {
           this.tabPath = "name1";
-        }else if ("name4" == this.tabPath){
+        } else if ("name4" == this.tabPath) {
           this.tabPath = this.tabPath;
-        }else {
+        } else {
           this.tabPath = this.tabPath.substr(0, 4) + (parseInt(this.tabPath.substr(4, 5)) + 1)
         }
       },
-      turnItem(name){
+      turnItem(name) {
         this.tabPath = name;
       },
-      searchAll(){
-        this.$axios.create({ headers: {'content-type': 'application/x-www-form-urlencoded'} })
+      searchAll() {
+        this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
           .post('/api/zh')
           .then(response => (this.infoList = response.data.params))
           .catch(function (error) {
-            alert(error);
+            alert("数据加载失败"+error);
           })
       },
-      searchFir(){
-        this.$axios.create({ headers: {'content-type': 'application/x-www-form-urlencoded'} })
+      searchFir() {
+        this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
           .post('/api/zh1')
           .then(response => (this.infoInstall = response.data))
           .catch(function (error) {
-            alert(error);
+            alert("数据统计失败"+error);
           })
       },
-      searchByName(){
+      searchByName() {
         const params1 = new URLSearchParams();
         params1.append('name', this.searchItem);
-        this.$axios.create({ headers: {'content-type': 'application/x-www-form-urlencoded'} })
+        this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
           .post('/api/searchByName', params1)
           .then(response => (this.infoList = response.data.params))
           .catch(function (error) {
-            alert(error);
+            alert("查询失败"+error);
           })
       }
     }
@@ -281,6 +301,7 @@
     border-bottom: 0rem solid #F5FAFA;
     margin-bottom: 0.5rem;
   }
+
   .page {
     .ivu-tabs-ink-bar {
       height: 0px;
@@ -293,57 +314,86 @@
       transition: transform .3s ease-in-out;
       transform-origin: 0 0;
     }
-    .carousel{
+
+    .carousel {
       width: 100%;
       height: 20rem;
-      img{
+
+      img {
         width: 100%;
         height: 18rem;
       }
     }
-    .form{
+
+    .form {
       margin-right: 2rem;
     }
-    .animation{
+
+    .animation {
       width: 100%;
       height: 10rem;
-      .start{
-        width:4rem;
-        height:4rem;
-        background:green;
-        position:relative;
+
+      .start {
+        width: 4rem;
+        height: 4rem;
+        background: green;
+        position: relative;
         left: -5rem;
         top: 0rem;
-        animation:myfirst 5s linear 2s infinite alternate;
-        img{
-          width:4rem;
-          height:4rem;
+        animation: myfirst 5s linear 2s infinite alternate;
+
+        img {
+          width: 4rem;
+          height: 4rem;
           -webkit-border-radius: 50%;
         }
       }
-      @keyframes myfirst
-      {
-        0%   {left:-5rem; top:0rem;}
-        10%  {left:5rem; top:0rem;-webkit-transform: rotate(90deg);}
-        50%  {left:25rem; top:0rem;-webkit-transform: rotate(180deg);}
-        90%  {left:30rem; top:0rem;-webkit-transform: rotate(270deg);}
-        100% {left:45rem; top:0rem;-webkit-transform: rotate(360deg);}
+
+      @keyframes myfirst {
+        0% {
+          left: -5rem;
+          top: 0rem;
+        }
+        10% {
+          left: 5rem;
+          top: 0rem;
+          -webkit-transform: rotate(90deg);
+        }
+        50% {
+          left: 25rem;
+          top: 0rem;
+          -webkit-transform: rotate(180deg);
+        }
+        90% {
+          left: 30rem;
+          top: 0rem;
+          -webkit-transform: rotate(270deg);
+        }
+        100% {
+          left: 45rem;
+          top: 0rem;
+          -webkit-transform: rotate(360deg);
+        }
       }
     }
-    .search{
+
+    .search {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      .search-box{
+
+      .search-box {
         width: 90%;
       }
+
       table {
         border-collapse: collapse;
         margin: 0 auto;
         text-align: center;
         border-style: none;
       }
+
       table td, table th {
         border: none;
         color: #666;
@@ -351,25 +401,27 @@
       }
 
       table thead th {
-        background-color: rgba(10,151,255,0.75);
+        background-color: rgba(10, 151, 255, 0.75);
         width: 100px;
       }
 
       table tr:nth-child(odd) {
-        background: rgba(227,246,255,0.75);
+        background: rgba(227, 246, 255, 0.75);
       }
 
       table tr:nth-child(even) {
-        background: rgba(248,255,224,0.75);
+        background: rgba(248, 255, 224, 0.75);
       }
     }
-    .update{
+
+    .update {
       width: 100%;
       height: 50rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      img{
+
+      img {
         width: 90%;
         height: 20rem;
       }
