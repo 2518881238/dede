@@ -69,12 +69,15 @@
           params.append('name', this.form.name);
           params.append('pass', this.form.pass);
           this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
-            .post('/api/login', params)
+            .post('http://148.70.3.6:8089/demo3/login', params)
             .then(response => (this.status = response.data.params))
             .catch(function (error) {
               alert("登录失败"+error);
             })
-        this.setCookie(this.form.name,this.form.pass,7);//设置cookie
+        if (this.status == true){
+          this.setCookie(this.form.name,this.form.pass,7);//设置cookie
+          this.$Message.info("登录成功")
+        }
       },
       cancel(){
         this.$Message.info("已取消登录")

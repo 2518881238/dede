@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight" tag="div">
+    <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight" tag="div" class="v-touch">
       <Tabs v-model="tabPath" @on-click="turnItem">
         <TabPane label="记账" name="name1">
           <div class="carousel">
@@ -230,7 +230,7 @@
           params.append('price', this.formValidate.price);
           params.append('desc', this.formValidate.desc);
           this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
-            .post('/api/add', params)
+            .post('http://148.70.3.6:8089/demo3/add', params)
             .then(response =>(this.addMsg = response.data,alert(this.addMsg.msg)))
             .catch(function (error) {
               alert("新增失败"+error);
@@ -268,7 +268,7 @@
       },
       searchAll() {
         this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
-          .post('/api/zh')
+          .post('http://148.70.3.6:8089/demo3/zh')
           .then(response => (this.infoList = response.data.params))
           .catch(function (error) {
             alert("数据加载失败"+error);
@@ -276,7 +276,7 @@
       },
       searchFir() {
         this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
-          .post('/api/zh1')
+          .post('http://148.70.3.6:8089/demo3/zh1')
           .then(response => (this.infoInstall = response.data))
           .catch(function (error) {
             alert("数据统计失败"+error);
@@ -286,7 +286,7 @@
         const params1 = new URLSearchParams();
         params1.append('name', this.searchItem);
         this.$axios.create({headers: {'content-type': 'application/x-www-form-urlencoded'}})
-          .post('/api/searchByName', params1)
+          .post('http://148.70.3.6:8089/demo3/searchByName', params1)
           .then(response => (this.infoList = response.data.params))
           .catch(function (error) {
             alert("查询失败"+error);
@@ -303,6 +303,9 @@
   }
 
   .page {
+    .v-touch{
+      touch-action: pan-y!important;
+    }
     .ivu-tabs-ink-bar {
       height: 0px;
       box-sizing: border-box;
